@@ -1,3 +1,4 @@
+"""Imports."""
 from django.contrib.auth import get_user_model
 from django.db import models
 
@@ -5,15 +6,20 @@ User = get_user_model()
 
 
 class Group(models.Model):
+    """Модель для группы."""
+
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     description = models.TextField()
 
     def __str__(self):
+        """Возвращает название группы в качестве строкового представления."""
         return self.title
 
 
 class Post(models.Model):
+    """Модель для поста."""
+
     text = models.TextField()
     pub_date = models.DateTimeField(
         'Дата публикации', auto_now_add=True
@@ -30,10 +36,13 @@ class Post(models.Model):
     )
 
     def __str__(self):
+        """Возвращает текст поста как строковое представление объекта поста."""
         return self.text
 
 
 class Comment(models.Model):
+    """Модель для поста."""
+
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='comments'
     )

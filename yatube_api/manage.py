@@ -5,6 +5,8 @@ import sys
 
 
 def main():
+    """Основная точка входа для управления Django-проектом."""
+    """через командную строку."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'yatube_api.settings')
     try:
         from django.core.management import execute_from_command_line
