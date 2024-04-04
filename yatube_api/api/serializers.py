@@ -1,4 +1,3 @@
-"""Imports."""
 from rest_framework import serializers
 
 from posts.models import Comment, Group, Post
@@ -43,7 +42,3 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ('id', 'author', 'post', 'text', 'created')
         read_only_fields = ('author', 'post')
-
-    def get_author(self, obj):
-        """Возвращает имя пользователя-автора объекта."""
-        return obj.author.username

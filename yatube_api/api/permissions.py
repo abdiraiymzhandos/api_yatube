@@ -1,4 +1,3 @@
-"""Imports."""
 from rest_framework import permissions
 
 

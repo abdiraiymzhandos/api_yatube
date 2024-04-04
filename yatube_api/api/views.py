@@ -1,12 +1,10 @@
-"""Imports."""
 from django.shortcuts import get_object_or_404
-
-from rest_framework import status, viewsets
-from rest_framework.response import Response
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from .permissions import IsAuthenticatedAndAuthorOrReadOnly
 from .serializers import CommentSerializer, GroupSerializer, PostSerializer
-
 from posts.models import Group, Post
 
 
@@ -22,17 +20,12 @@ class PostViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user)
 
 
-class GroupViewSet(viewsets.ModelViewSet):
+class GroupViewSet(ReadOnlyModelViewSet):
     """Представление для работы с группами."""
 
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    permission_classes = [IsAuthenticatedAndAuthorOrReadOnly]
-
-    def create(self, request, *args, **kwargs):
-        """Обрабатывает попытки создания новой группы через API."""
-        return Response({'detail': 'Method "POST" not allowed.'},
-                        status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    permission_classes = [IsAuthenticated]
 
 
 class CommentViewSet(viewsets.ModelViewSet):
